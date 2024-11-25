@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard UI</title>
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f6e9ff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        user-select: none; /* Prevents text selection */
+    }
+
+    .dashboard {
+        width: 375px;
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        cursor: grab;
+        transition: box-shadow 0.2s;
+        user-select: none; /* Prevents text selection */
+    }
+
+    .dashboard:active {
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .dashboard-content {
+        pointer-events: auto;
+        user-select: none; /* Prevents text selection */
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+        font-size: 24px;
+        margin: 0;
+        user-select: none; /* Prevents text selection */
+    }
+
+    .header .bell {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    .project-summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      color: #333;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      transition: background-color 0.3s, border 0.3s;
+      user-select: none;
+    }
+
+    .card:nth-child(1) {
+      background-color: #ffd5f7;
+    }
+
+    .card:nth-child(2) {
+      background-color: #ffd5f7;
+    }
+
+    .card:nth-child(3) {
+      background-color: #ffe8b2;
+    }
+
+    .card:nth-child(4) {
+      background-color: #c5ffc5;
+    }
+
+    .card.grayed {
+      background-color: #d3d3d3 !important;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card.no-hover:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .card.dotted {
+      border: 2px dashed #666;
+    }
+
+    .project-statistics {
+      margin-top: 20px;
+    }
+
+    .project-statistics h2 {
+      font-size: 16px;
+      margin-bottom: 10px;
+user-select: none;
+    }
+
+    .stats-bar {
+      width: 100%;
+      height: 150px;
+      background: url('https://www.cambridgemaths.org/Images/The-trouble-with-graphs.jpg') center center no-repeat;
+      background-size: cover;
+      border-radius: 10px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .footer div {
+      text-align: center;
+    }
+
+    .footer div span {
+      font-size: 20px;
+      font-weight: bold;
+      display: block;
+user-select: none;
+    }
+
+    .toggle-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .toggle-container label {
+      cursor: pointer;
+    }
+
+    .toggle-container input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle-container span {
+      display: inline-block;
+      background-color: #ccc;
+      border-radius: 15px;
+      width: 50px;
+      height: 25px;
+      position: relative;
+      transition: background-color 0.3s;
+    }
+
+    .toggle-container span::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 2.5px;
+      left: 2.5px;
+      transition: left 0.3s;
+    }
+
+    .toggle-container input[type="checkbox"]:checked + span {
+      background-color: #4caf50;
+    }
+
+    .toggle-container input[type="checkbox"]:checked + span::after {
+      left: 27.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="dashboard-content">
+      <div class="toggle-container">
+        <label>
+          <input type="checkbox" id="edit-toggle">
+          <span></span>
+        </label>
+      </div>
+      <div class="header">
+        <h1>Dashboard</h1>
+        <dotlottie-player 
+          id="bell-animation"
+          class="bell" 
+          src="https://lottie.host/14fccbd6-6ce6-4744-9489-c62dc52ee7ef/dzQiB5ayBl.lottie" 
+          background="transparent" 
+          speed="1"
+          autoplay="false"
+          loop="false">
+        </dotlottie-player>
+      </div>
+      <div class="project-summary">
+        <div class="card">
+          <h2>24</h2>
+          <p>In Progress</p>
+        </div>
+        <div class="card">
+          <h2>56</h2>
+          <p>In Review</p>
+        </div>
+        <div class="card">
+          <h2>16</h2>
+          <p>On Hold</p>
+        </div>
+        <div class="card">
+          <h2>45</h2>
+          <p>Completed</p>
+        </div>
+      </div>
+      <div class="project-statistics">
+        <h2>Project Statistics</h2>
+        <div class="stats-bar"></div>
+      </div>
+      <div class="footer">
+        <div>
+          <span>50:25:06</span>
+          <p>Total Working Hours</p>
+        </div>
+        <div>
+          <span>125</span>
+          <p>Total Task Activity</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const editToggle = document.getElementById('edit-toggle');
+  const cards = document.querySelectorAll('.card');
+  const bellAnimation = document.getElementById('bell-animation');
+  const dashboard = document.querySelector('.dashboard');
+  const dashboardContent = document.querySelector('.dashboard-content');
+
+  let isDragging = false;
+  let startX, startY, offsetX = 0, offsetY = 0;
+  let velocityX = 0, velocityY = 0;
+  let lastX = 0, lastY = 0;
+  let inertiaFrame;
+
+  // Toggle card appearance and behavior
+  editToggle.addEventListener('change', () => {
+    const isEditable = editToggle.checked;
+
+    cards.forEach(card => {
+      card.setAttribute('draggable', isEditable);
+      card.style.cursor = isEditable ? 'move' : 'default';
+
+      if (isEditable) {
+        card.classList.add('grayed', 'dotted', 'no-hover');
+      } else {
+        card.classList.remove('grayed', 'dotted', 'no-hover');
+      }
+    });
+  });
+
+  // Play Lottie animation on hover
+  bellAnimation.addEventListener('mouseenter', () => {
+    bellAnimation.play();
+  });
+
+  bellAnimation.addEventListener('mouseleave', () => {
+    bellAnimation.stop();
+  });
+
+  // Dragging functionality with inertia
+  dashboard.addEventListener('mousedown', (event) => {
+    if (event.target.closest('.dashboard-content')) return; 
+    isDragging = true;
+    startX = event.clientX - offsetX;
+    startY = event.clientY - offsetY;
+    lastX = event.clientX;
+    lastY = event.clientY;
+    dashboard.style.cursor = 'grabbing';
+    dashboardContent.style.pointerEvents = 'none'; 
+
+    // Cancel inertia animation if dragging starts again
+    cancelAnimationFrame(inertiaFrame);
+  });
+
+  document.addEventListener('mousemove', (event) => {
+    if (isDragging) {
+      const currentX = event.clientX;
+      const currentY = event.clientY;
+
+      offsetX = currentX - startX;
+      offsetY = currentY - startY;
+
+      velocityX = currentX - lastX;
+      velocityY = currentY - lastY;
+
+      lastX = currentX;
+      lastY = currentY;
+
+      dashboard.style.transform = translate(${offsetX}px, ${offsetY}px);
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      dashboard.style.cursor = 'grab';
+      dashboardContent.style.pointerEvents = 'auto';
+
+      // Start inertia
+      applyInertia();
+    }
+  });
+
+  function applyInertia() {
+    velocityX *= 0.95; // Deceleration factor for X
+    velocityY *= 0.95; // Deceleration factor for Y
+
+    offsetX += velocityX;
+    offsetY += velocityY;
+
+    dashboard.style.transform = translate(${offsetX}px, ${offsetY}px);
+
+    // Continue animation until velocity is negligible
+    if (Math.abs(velocityX) > 0.1 || Math.abs(velocityY) > 0.1) {
+      inertiaFrame = requestAnimationFrame(applyInertia);
+    }
+  }
+</script>
+
+</body>
+</html>
